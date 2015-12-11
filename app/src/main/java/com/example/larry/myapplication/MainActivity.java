@@ -2,6 +2,7 @@ package com.example.larry.myapplication;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -124,7 +125,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            int tab_number =  getArguments().getInt(ARG_SECTION_NUMBER);
+            @LayoutRes int resource ;
+            switch (tab_number){
+                case 1:
+                    resource = R.layout.tab_one;
+                    break;
+                case 2:
+                    resource = R.layout.tab_two;
+                    break;
+                default:
+                    resource = R.layout.tab_three;
+                    break;
+            }
+            View rootView = inflater.inflate(resource, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
